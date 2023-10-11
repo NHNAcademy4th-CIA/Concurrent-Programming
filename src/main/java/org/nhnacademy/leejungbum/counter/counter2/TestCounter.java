@@ -1,4 +1,4 @@
-package org.nhnacademy.leejungbum.counter2;
+package org.nhnacademy.leejungbum.counter.counter2;
 
 public class TestCounter {
     public static void main(String[] args) {
