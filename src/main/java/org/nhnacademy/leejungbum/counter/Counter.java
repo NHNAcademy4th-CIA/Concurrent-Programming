@@ -1,10 +1,11 @@
 package org.nhnacademy.leejungbum.counter;
 
 public class Counter {
+
     private String name;
     private int count;
     public Counter(){
-        name="Counter";
+        name="counter";
         count=0;
     }
 
@@ -16,7 +17,7 @@ public class Counter {
                 throw new RuntimeException(e);
             }
             count++;
-            System.out.println(name+ " : "+count);
+            System.out.println(getClass().getSimpleName()+ " : "+count);
         }
     }
 }
