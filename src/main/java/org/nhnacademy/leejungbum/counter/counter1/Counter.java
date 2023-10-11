@@ -1,4 +1,4 @@
-package org.nhnacademy.leejungbum.counter;
+package org.nhnacademy.leejungbum.counter.counter1;
 
 public class Counter {
 
