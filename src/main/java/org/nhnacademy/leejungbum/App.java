@@ -1,4 +1,4 @@
-package org.nhnacademy;
+package org.nhnacademy.leejungbum;
 
 /**
  * Hello world!
