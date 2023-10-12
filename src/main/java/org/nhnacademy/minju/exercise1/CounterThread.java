@@ -13,6 +13,7 @@ public class CounterThread extends Thread {
         this.count = 0;
     }
 
+    @Override
     public void run() {
         while (!Thread.interrupted()) {
             logger.info("{} : {}", name, ++count);
