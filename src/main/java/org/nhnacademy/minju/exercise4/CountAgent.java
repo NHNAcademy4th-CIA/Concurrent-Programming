@@ -17,8 +17,10 @@ public class CountAgent extends Thread{
         for(int i = 0 ; i < numberOfIterations; i++) {
             if (increment) {
                 counter.increment();
+                counter.increment2();
             } else {
                 counter.decrement();
+                counter.decrement2();
             }
         }
     }

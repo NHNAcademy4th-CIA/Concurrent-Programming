@@ -18,6 +18,7 @@ public class TestCounter {
         }
 
         System.out.println("Count : " + counter.getCount());
+        System.out.println("Another Count : " + counter.getAnotherCount());
 
     }
 }
