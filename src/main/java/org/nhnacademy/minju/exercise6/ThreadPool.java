@@ -31,7 +31,7 @@ public class ThreadPool {
         ExecutorService executor = Executors.newFixedThreadPool(5);
 
         for (int i = 0; i < 10; i++) {
-            executor.submit(new WorkerThread(executor.toString()));
+            executor.execute(new WorkerThread(executor.toString()));
         }
 
         // 모든 작업이 완료될 때까지 대기
