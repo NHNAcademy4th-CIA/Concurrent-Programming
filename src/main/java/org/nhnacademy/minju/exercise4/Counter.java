@@ -3,11 +3,11 @@ package org.nhnacademy.minju.exercise4;
 public class Counter {
     long count;
 
-    public void increment() {
+    public synchronized void increment() {
         count++;
     }
 
-    public void decrement() {
+    public synchronized void decrement() {
         count--;
     }
 
