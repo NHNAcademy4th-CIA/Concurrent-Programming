@@ -8,14 +8,14 @@ public class Counter {
     private final String name;
     private int count;
 
-    public Counter() {
-        this.name = "Counter";
+    public Counter(String name) {
+        this.name = name;
         this.count = 0;
     }
 
     public void run() {
         while (!Thread.interrupted()) {
-            logger.info("{} : {}", name, count++);
+            logger.info("{} : {}", name, ++count);
         }
     }
 }
