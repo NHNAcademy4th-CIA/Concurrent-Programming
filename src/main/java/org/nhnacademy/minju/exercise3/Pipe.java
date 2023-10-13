@@ -12,7 +12,6 @@ public class Pipe {
     public synchronized int receive() throws InterruptedException {
         while (empty) {
             try {
-                wait();
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
@@ -26,7 +25,6 @@ public class Pipe {
     public synchronized void send(int data) throws InterruptedException {
         while (!empty) {
             try {
-                wait();
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());

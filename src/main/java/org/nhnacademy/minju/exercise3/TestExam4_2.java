@@ -41,7 +41,6 @@ public class TestExam4_2 {
                 }
 
                 Thread.sleep(10);
-                ;
             } catch (InterruptedException ignore) {
                 Thread.currentThread().interrupt();
             }
