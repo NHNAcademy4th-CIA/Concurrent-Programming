@@ -4,17 +4,17 @@ import java.util.concurrent.Semaphore;
 
 
 public class Store {
-    Semaphore tickets;
+    Semaphore semaphore;
     int boxCount;
 
     public Store() {
-        tickets = new Semaphore(5);
+        semaphore = new Semaphore(5);
         boxCount = 0;
     }
 
     public void enter() throws InterruptedException {
         try {
-            tickets.acquire();
+            semaphore.acquire();
             System.out.println(Thread.currentThread().getName() + " 입장");
         } catch (InterruptedException e) {
             throw e;
@@ -22,7 +22,7 @@ public class Store {
     }
 
     public void exit() {
-        tickets.release();
+        semaphore.release();
         System.out.println(Thread.currentThread().getName() + " 퇴장");
     }
 
