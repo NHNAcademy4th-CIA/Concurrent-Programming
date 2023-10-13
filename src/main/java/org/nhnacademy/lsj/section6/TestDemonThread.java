@@ -12,7 +12,7 @@ public class TestDemonThread {
                     Thread.sleep(1000);
                 }catch (InterruptedException e){
                     System.out.println(e.getMessage());
-                    break;
+                    Thread.currentThread().interrupt();
                 }
                 System.out.println("1초에 한번 씩 출력 합니다.");
 
