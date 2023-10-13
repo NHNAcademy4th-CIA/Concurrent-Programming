@@ -2,14 +2,15 @@ package org.nhnacademy.lsj.section7;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import javax.swing.plaf.basic.BasicTreeUI;
 
 public class Store {
 
 
-    public Queue<Product> queue = new LinkedList<>();
+    private Queue<Product> queue = new LinkedList<>();
 
 
-    public int customerNumber;
+    private int customerNumber;
 
     public Store() {
         customerNumber = 0;
@@ -25,6 +26,12 @@ public class Store {
 
 
     public synchronized void enter() {
+
+        try{
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
 
         System.out.println("매장 들어와 지금 손님수 " + this.customerNumber);
         while (this.customerNumber == 5) {
@@ -67,6 +74,12 @@ public class Store {
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
+        }
+
+        try{
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
         }
 
         Product product = queue.poll();

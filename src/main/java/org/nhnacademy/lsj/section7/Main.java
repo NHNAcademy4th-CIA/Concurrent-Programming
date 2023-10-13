@@ -9,17 +9,17 @@ public class Main {
         Store store = new Store();
 
 
-        Seller[] sellers = new Seller[10];
-        Buyer[] buyers = new Buyer[10];
+        Seller seller = new Seller(store);
 
-        for (int i = 0; i < sellers.length; i++) {
-            sellers[i] = new Seller(store);
-            buyers[i] = new Buyer(i + " 번째 구매자", store);
+        Buyer[] buyers = new Buyer[5];
+
+        seller.start();
+        for (int i = 0; i < buyers.length; i++) {
+            buyers[i] = new Buyer((i + 1) + " 번째 구매자", store);
         }
 
 
-        for (int i = 0; i < sellers.length; i++) {
-            sellers[i].start();
+        for (int i = 0; i < buyers.length; i++) {
             buyers[i].start();
         }
 

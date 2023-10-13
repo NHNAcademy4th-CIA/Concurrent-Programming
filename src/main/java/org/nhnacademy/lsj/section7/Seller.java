@@ -19,6 +19,7 @@ public class Seller extends Thread {
         list.add(new Product("소고기", 20000));
         list.add(new Product("두리안", 8000));
         list.add(new Product("김치", 6000));
+
     }
 
     @Override
@@ -26,13 +27,12 @@ public class Seller extends Thread {
 
         while (true) {
 
-            int time = ThreadLocalRandom.current().nextInt(1, 10 + 1);
 
-            try {
-                Thread.sleep(time * 500); // 물건납품 기다림
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
+//            try {
+//                Thread.sleep(10); // 물건납품 기다림
+//            } catch (InterruptedException e) {
+//                System.out.println(e.getMessage());
+//            }
 
             int randomNumber = ThreadLocalRandom.current().nextInt(0, list.size());
 

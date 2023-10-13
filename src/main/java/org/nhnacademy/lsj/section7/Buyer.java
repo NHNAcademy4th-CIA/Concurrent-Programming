@@ -3,7 +3,7 @@ package org.nhnacademy.lsj.section7;
 public class Buyer extends Thread {
 
 
-    Store store;
+    private final Store store;
 
     public Buyer(String name, Store store) {
         super(name);
@@ -19,9 +19,6 @@ public class Buyer extends Thread {
             store.enter();
             store.sell();
             store.exit();
-
-
-
 
         }
 
