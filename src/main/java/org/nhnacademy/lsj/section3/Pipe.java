@@ -11,7 +11,7 @@ public class Pipe implements Wait {
 
         System.out.println("리시브 시작");
 
-        if (empty) { // receiver 한테 data 주기
+        while (empty) { // receiver 한테 data 주기
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -34,7 +34,7 @@ public class Pipe implements Wait {
     public synchronized void send(int data) { // sender 한테서 data 받기
         System.out.println("샌드 시작");
 
-        if (!empty) { // 보낼 data 있으면 대기
+        while (!empty) { // 보낼 data 있으면 대기
 
             try {
                 wait();
