@@ -3,6 +3,9 @@ package org.nhnacademy.lsj.section1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 기존의 counter class 와 동일 , 하지만 Thread를 extends받아 multi thread이용 가능.
+ */
 public class CounterThread extends Thread {
 
     private static final Logger logger = LoggerFactory.getLogger(CounterThread.class);
@@ -19,6 +22,9 @@ public class CounterThread extends Thread {
         this.count++;
     }
 
+    /**
+     * 1초마다 count 출력.
+     */
     public void run() {
 
         while (!Thread.interrupted()) {
