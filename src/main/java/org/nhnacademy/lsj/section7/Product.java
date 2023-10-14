@@ -1,5 +1,8 @@
 package org.nhnacademy.lsj.section7;
 
+/**
+ * 마트에서 납품받거나 , 손님에게 팔 물건 class.
+ */
 public class Product {
 
     private final String name;
@@ -12,7 +15,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "name='" + name + '\'' +
-                ", cost=" + cost;
+        return "name='" + name + '\'' + ", cost=" + cost;
     }
 }

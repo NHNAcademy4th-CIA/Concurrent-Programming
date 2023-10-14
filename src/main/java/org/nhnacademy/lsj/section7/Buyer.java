@@ -1,5 +1,8 @@
 package org.nhnacademy.lsj.section7;
 
+/**
+ * 마트에서 물건 사갈 소비자 class .
+ */
 public class Buyer extends Thread {
 
 
@@ -16,9 +19,9 @@ public class Buyer extends Thread {
 
         while (true) {
 
-            store.enter();
-            store.sell();
-            store.exit();
+            store.enter(); // 마트에 들어가
+            store.sell(); // 마트에서 물건 사
+            store.exit(); // 마트에서 나와
 
         }
 
