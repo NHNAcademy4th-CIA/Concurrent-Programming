@@ -1,5 +1,8 @@
 package org.nhnacademy.lsj.section3;
 
+/**
+ * pipe한테 data를 보낼 , Sender class.
+ */
 public class Sender implements Runnable, Wait {
 
     private final Pipe pipe;
@@ -13,9 +16,9 @@ public class Sender implements Runnable, Wait {
 
 
         int data = -1;
-        while (true){
+        while (true) {
             data++;
-            pipe.send(data);
+            pipe.receive(data);
             waitThread();
         }
 

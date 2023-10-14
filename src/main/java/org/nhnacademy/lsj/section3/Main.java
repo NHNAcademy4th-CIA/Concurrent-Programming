@@ -2,10 +2,19 @@ package org.nhnacademy.lsj.section3;
 
 import java.time.LocalDateTime;
 
+/**
+ * Thread 의 상태를 나타낼 class.
+ */
 public class Main {
 
 
-    public static void main(String[] args)  {
+    /**
+     * pipe 로 data를 보내는 Sender 2개 , pipe로 부터 data를 받는 Receiver 1개.
+     * 각각의 상태를 나타냄.
+     *
+     * @param args command line.
+     */
+    public static void main(String[] args) {
 
 
         Pipe pipe = new Pipe();

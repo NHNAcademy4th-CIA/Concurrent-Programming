@@ -1,11 +1,17 @@
 package org.nhnacademy.lsj.section3;
 
+/**
+ * Thread.sleep() 작업을 위한 interface.
+ */
 public interface Wait {
 
-     default void waitThread(){
-        try{  // 파이프 채워지면 기다림
+    /**
+     * Thread.sleep().
+     */
+    default void waitThread() {
+        try {
             Thread.sleep(1000);
-        }catch (InterruptedException e){
+        } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
     }

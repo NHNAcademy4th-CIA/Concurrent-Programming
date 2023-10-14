@@ -1,6 +1,8 @@
 package org.nhnacademy.lsj.section3;
 
-// data 받을 class
+/**
+ * pipe 한테 data를 받을 receiver class.
+ */
 public class Receiver implements Runnable, Wait {
 
     private final Pipe pipe;
@@ -9,7 +11,7 @@ public class Receiver implements Runnable, Wait {
 
     public Receiver(Pipe pipe, int endData) {
         this.pipe = pipe;
-        this.endData=endData;
+        this.endData = endData;
     }
 
     @Override
@@ -17,13 +19,12 @@ public class Receiver implements Runnable, Wait {
 
         int data;
         do {
-            data = pipe.receive();
+            data = pipe.send();
             waitThread();
         } while (data != this.endData);
 
 
-        System.out.println(data+ " 리시브 끝");
-
+        System.out.println(data + " 리시브 끝");
 
 
     }
