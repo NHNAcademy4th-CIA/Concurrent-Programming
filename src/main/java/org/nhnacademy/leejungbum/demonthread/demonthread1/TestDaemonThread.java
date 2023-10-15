@@ -30,7 +30,7 @@ public class TestDaemonThread {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        w1.interrupt();
+        w2.interrupt();
         System.out.println("Main Thread terminated");
     }
 }
