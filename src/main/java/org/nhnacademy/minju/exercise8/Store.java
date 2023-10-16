@@ -14,11 +14,22 @@ import java.util.concurrent.Semaphore;
 public class Store {
 
     private Semaphore entry; // 리소스에 접근할 수 있는 스레드의 수를 제한
-    private int itemCount;
+    private Product[] itemList;
 
     public Store() {
         entry = new Semaphore(5);
-        itemCount = 10;
+    }
+
+    public void setItemList(Product[] itemList) {
+        this.itemList = itemList;
+    }
+
+    public Product[] getItemList() {
+        return itemList;
+    }
+
+    public int getItemListSize() {
+        return itemList.length;
     }
 
     public void enter() {
@@ -37,51 +48,36 @@ public class Store {
         Thread.currentThread().interrupt();
     }
 
-    public synchronized void buy() {
-        while (itemCount <= 0) {
-            try {
-                System.out.println(Thread.currentThread().getName() + " 구매 대기");
-                wait();
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+    public void buy(int index) {
+        synchronized (itemList[index]) {
+            while (itemList[index].getItemCount() >= 10) {
+                System.out.println(itemList[index].getItemName() + "는 재고가 다 차있다.");
+                try {
+                    itemList[index].wait();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
+            itemList[index].setItemCountIncrement();
+            System.out.println("재고 채우기 완료, 재고 : " + itemList[index].getItemCount());
+            itemList[index].notifyAll();
         }
-        itemCount--;
-        System.out.println("구매 완료, 재고 : " + itemCount);
-        notify();
     }
 
-    public synchronized void sell() {
-        while (itemCount >= 10) {
-            try {
-                System.out.println("재고를 채울 필요 없다. 재고 : " + itemCount);
-                wait();
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+    public void sell(int itemIndex) {
+        synchronized (itemList[itemIndex]) {
+            while (itemList[itemIndex].getItemCount() <= 0) {
+                try {
+                    System.out.println(Thread.currentThread().getName() + " 구매 대기");
+                    itemList[itemIndex].wait();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
-        }
-        itemCount++;
-        System.out.println("판매 후 재고 채우기 완료, 재고 : " + itemCount);
-        notify();
-    }
-
-    public static void main(String[] args) {
-
-        Store store = new Store();
-        Seller seller = new Seller(store);
-        seller.start();
-
-        for (int i = 0; ; i++) {
-            Buyer buyer = new Buyer("Buyer " + i, store);
-            buyer.start();
-            try {
-                Thread.sleep(1_000);
-            } catch (InterruptedException e) {
-                System.out.println("terminated");
-                Thread.currentThread().interrupt();
-            }
+            itemList[itemIndex].setItemCountDecrement();
+            System.out.printf("%s 구매 완료, 재고 : %d%n", itemList[itemIndex].getItemName(),
+                    (itemList[itemIndex].getItemCount()));
+            itemList[itemIndex].notifyAll();
         }
     }
 }

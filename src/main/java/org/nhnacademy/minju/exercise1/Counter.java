@@ -16,6 +16,11 @@ public class Counter {
     public void run() {
         while (!Thread.interrupted()) {
             logger.info("{} : {}", name, ++count);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 }

@@ -16,6 +16,7 @@ public class TestClothingStore {
             customers[i] = new Thread(() -> {
                 try {
                     dressrooms.acquire();
+                    System.out.println("옷 입는 중");
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     System.out.println(e.getMessage());
@@ -28,8 +29,5 @@ public class TestClothingStore {
         for (int i = 0; i < customers.length; i++) {
             customers[i].start();
         }
-
-
-        System.out.println("탈의 완료");
     }
 }
