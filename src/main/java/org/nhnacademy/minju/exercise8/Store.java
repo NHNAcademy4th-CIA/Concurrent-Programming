@@ -1,6 +1,5 @@
 package org.nhnacademy.minju.exercise8;
 
-import java.util.List;
 import java.util.concurrent.Semaphore;
 
 /**
@@ -49,18 +48,20 @@ public class Store {
         Thread.currentThread().interrupt();
     }
 
-    public synchronized void buy(int i) {
-        while (itemList[i].getItemCount() >= 10) {
-            System.out.println(itemList[i].getItemName() + "는 재고가 다 차있다.");
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+    public void buy(int index) {
+        synchronized (itemList[index]) {
+            while (itemList[index].getItemCount() >= 10) {
+                System.out.println(itemList[index].getItemName() + "는 재고가 다 차있다.");
+                try {
+                    itemList[index].wait();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
             }
+            itemList[index].setItemCountIncrement();
+            System.out.println("재고 채우기 완료, 재고 : " + itemList[index].getItemCount());
+            itemList[index].notifyAll();
         }
-        itemList[i].setItemCountIncrement();
-        System.out.println("재고 채우기 완료, 재고 : " + itemList[i].getItemCount());
-        notifyAll();
     }
 
     public void sell(int itemIndex) {
@@ -69,7 +70,6 @@ public class Store {
                 try {
                     System.out.println(Thread.currentThread().getName() + " 구매 대기");
                     itemList[itemIndex].wait();
-                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
