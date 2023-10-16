@@ -1,5 +1,6 @@
 package org.nhnacademy.minju.exercise8;
 
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -18,10 +19,11 @@ public class Buyer extends Thread {
 
     @Override
     public void run() {
+        Random random = new Random();
         while (!Thread.interrupted()) {
             try {
                 store.enter();
-                store.buy();
+                store.sell(random.nextInt(store.getItemListSize()));
                 store.exit();
                 sleep(ThreadLocalRandom.current().nextInt(1_000, 10_000));
             } catch (InterruptedException e) {
