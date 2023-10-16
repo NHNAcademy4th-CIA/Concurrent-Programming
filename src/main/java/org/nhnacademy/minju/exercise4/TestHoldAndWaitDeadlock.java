@@ -15,18 +15,27 @@ public class TestHoldAndWaitDeadlock {
         Thread task1 = new Thread(() -> {
             while (!Thread.interrupted()) {
                 try {
-                    Thread.sleep(1000);
+                    lock.lockInterruptibly();
+                    System.out.println("task1 lock");
+                    lock.unlock();
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
-                lock.lock();
-                System.out.println("lock acquired");
+
             }
         });
 
         Thread task2 = new Thread(() -> {
             while (!Thread.interrupted()) {
                 lock.lock();
+                System.out.println("task2 lock");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+                lock.unlock();
             }
         });
 
