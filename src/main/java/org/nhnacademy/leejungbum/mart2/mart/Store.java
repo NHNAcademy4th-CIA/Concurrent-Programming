@@ -2,7 +2,6 @@ package org.nhnacademy.leejungbum.mart2.mart;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.ThreadLocalRandom;
 
 
