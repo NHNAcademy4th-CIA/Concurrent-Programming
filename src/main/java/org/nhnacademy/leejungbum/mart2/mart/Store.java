@@ -24,7 +24,7 @@ public class Store {
             semaphore.acquire();
             System.out.println(Thread.currentThread().getName() + " 입장");
         } catch (InterruptedException e) {
-            throw e;
+            System.out.println("입장중 오류가 발생하였습니다");
         }
     }
 
