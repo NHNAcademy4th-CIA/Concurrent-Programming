@@ -9,12 +9,12 @@ public class Store {
     Semaphore semaphore;
     int max;
     List<Integer> goods;
+
     public Store(int max) {
         semaphore = new Semaphore(5);
-        goods=new ArrayList<>();
-        this.max=max;
-        for(int i = 0; i<5;i++)
-        {
+        goods = new ArrayList<>();
+        this.max = max;
+        for (int i = 0; i < 5; i++) {
             goods.add(max);
         }
     }
@@ -33,7 +33,7 @@ public class Store {
         System.out.println(Thread.currentThread().getName() + " 퇴장");
     }
 
-    public  void buy(int i) {
+    public void buy(int i) {
         synchronized (goods.get(i)) {
             while (goods.get(i) == 0) {
                 try {
@@ -44,15 +44,15 @@ public class Store {
                     Thread.interrupted();
                 }
             }
-        int tmp = goods.get(i)-1;
-        System.out.println(i+" 구매 완료, 제고 : " + tmp);
-        goods.remove(i);
-        goods.add(i,tmp);
-        goods.get(i).notifyAll();
+            int tmp = goods.get(i) - 1;
+            System.out.println(i + " 구매 완료, 제고 : " + tmp);
+            goods.set(i, tmp);
+
+            goods.get(i).notifyAll();
         }
     }
 
-    public  void sell() {
+    public void sell() {
         int i = ThreadLocalRandom.current().nextInt(0, max);
         synchronized (goods.get(i)) {
 
