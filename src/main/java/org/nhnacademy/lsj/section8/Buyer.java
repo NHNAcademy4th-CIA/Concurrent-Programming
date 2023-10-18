@@ -27,7 +27,7 @@ public class Buyer extends Thread {
     @Override
     public void run() {
 
-        while (true) {
+        while (!Thread.interrupted()) {
             store.enter(); // 마트 들어가
             int index = ThreadLocalRandom.current().nextInt(0, number); // 난수 생성
             store.sell(index); // 마트에서 물건 구입

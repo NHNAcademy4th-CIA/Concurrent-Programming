@@ -34,7 +34,7 @@ public class Seller extends Thread {
     @Override
     public void run() { // 매장에 물건이 비지 않도록 채운다 .
 
-        while (true) {
+        while (!Thread.interrupted()) {
 
             int time = ThreadLocalRandom.current().nextInt(1, 10 + 1);
 
