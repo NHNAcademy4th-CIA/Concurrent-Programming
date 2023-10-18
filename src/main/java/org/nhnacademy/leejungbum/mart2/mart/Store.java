@@ -34,11 +34,11 @@ public class Store {
     }
 
     public void buy(int i) {
-        synchronized (goods.get(i)) {
+        synchronized (goods) {
             while (goods.get(i) == 0) {
                 try {
                     System.out.println(Thread.currentThread().getName() + " 구매 대기");
-                    goods.get(i).wait();
+                    goods.wait();
                     Thread.sleep(100);
                 } catch (InterruptedException ignore) {
                     Thread.interrupted();
@@ -48,18 +48,18 @@ public class Store {
             System.out.println(i + " 구매 완료, 제고 : " + tmp);
             goods.set(i, tmp);
 
-            goods.get(i).notifyAll();
+            goods.notifyAll();
         }
     }
 
     public void sell() {
         int i = ThreadLocalRandom.current().nextInt(0, max);
-        synchronized (goods.get(i)) {
+        synchronized (goods) {
 
             while (goods.get(i) >= max) {
                 try {
                     System.out.println("납품 대기 중입니다.");
-                    goods.get(i).wait();
+                    goods.wait();
                     Thread.sleep(100);
                 } catch (InterruptedException ignore) {
                     Thread.currentThread().interrupt();
@@ -68,7 +68,7 @@ public class Store {
             int tmp = goods.get(i) + 1;
             goods.set(i, tmp);
             System.out.println(i + " 납품 완료. 제고 : " + tmp);
-            goods.get(i).notifyAll();
+            goods.notifyAll();
         }
     }
 }
