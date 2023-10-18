@@ -41,7 +41,7 @@ public class Store {
                     goods.wait();
                     Thread.sleep(100);
                 } catch (InterruptedException ignore) {
-                    Thread.interrupted();
+                    Thread.currentThread().interrupt();
                 }
             }
             int tmp = goods.get(i) - 1;
