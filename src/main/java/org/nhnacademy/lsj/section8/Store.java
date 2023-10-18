@@ -81,6 +81,15 @@ public class Store {
 
         // 품목별로 매장이 다르기 떄문에 index이용 , mutex로 접근제어.
         synchronized (productList[index]) {
+
+            if (productList[index].size() >= 10) {
+                try {
+                    productList[index].wait();
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                    Thread.currentThread().interrupt();
+                }
+            }
             productList[index].add(product);
             System.out.println("매장에 물건 입고 " + product);
             productList[index].notifyAll(); // 물건 입고됐으면 재고 없어서 기다리던 thread를 꺠워줌.
@@ -104,6 +113,7 @@ public class Store {
                     productList[index].wait(); // 비어있다면 wait , 물건이 입고되면 notifyAll()로 꺨 수 있음.
                 } catch (InterruptedException e) {
                     System.out.println(e.getMessage());
+                    Thread.currentThread().interrupt();
                 }
             }
 
@@ -113,9 +123,11 @@ public class Store {
 
             try {
                 Thread.sleep(1000);
+                productList[index].notifyAll();
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
             }
+
 
         }
 
