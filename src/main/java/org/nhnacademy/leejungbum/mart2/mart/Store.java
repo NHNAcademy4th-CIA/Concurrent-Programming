@@ -33,39 +33,42 @@ public class Store {
         System.out.println(Thread.currentThread().getName() + " 퇴장");
     }
 
-    public synchronized void buy(int i) {
+    public  void buy(int i) {
         synchronized (goods.get(i)) {
             while (goods.get(i) == 0) {
                 try {
                     System.out.println(Thread.currentThread().getName() + " 구매 대기");
-                    wait();
+                    goods.get(i).wait();
                     Thread.sleep(100);
                 } catch (InterruptedException ignore) {
                     Thread.interrupted();
                 }
             }
-        }
         int tmp = goods.get(i)-1;
         System.out.println(i+" 구매 완료, 제고 : " + tmp);
         goods.remove(i);
         goods.add(i,tmp);
-        notifyAll();
+        goods.get(i).notifyAll();
+        }
     }
 
-    public synchronized void sell() {
+    public  void sell() {
         int i = ThreadLocalRandom.current().nextInt(0, max);
-        while (goods.get(i) >= max) {
-            try {
-                System.out.println("납품 대기 중입니다.");
-                wait();
-                Thread.sleep(100);
-            } catch (InterruptedException ignore) {
-                Thread.currentThread().interrupt();
+        synchronized (goods.get(i)) {
+
+            while (goods.get(i) >= max) {
+                try {
+                    System.out.println("납품 대기 중입니다.");
+                    goods.get(i).wait();
+                    Thread.sleep(100);
+                } catch (InterruptedException ignore) {
+                    Thread.currentThread().interrupt();
+                }
             }
+            int tmp = goods.get(i) + 1;
+            goods.set(i, tmp);
+            System.out.println(i + " 납품 완료. 제고 : " + tmp);
+            goods.get(i).notifyAll();
         }
-        int tmp = goods.get(i) + 1;
-        goods.set(i, tmp);
-        System.out.println(i + " 납품 완료. 제고 : " + tmp);
-        notifyAll();
     }
 }
